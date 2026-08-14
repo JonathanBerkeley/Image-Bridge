@@ -1,0 +1,10 @@
+{
+  "name": "image-bridge",
+  "version": "1.0.0",
+  "description": "Bridge Windows and WSLg's X11 clipboards, so that Kiro can paste it.",
+  "supports": "windows & x64",
+  "dependencies": [
+    "stb",
+    "libwebp"
+  ]
+}

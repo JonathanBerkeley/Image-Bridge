@@ -1,0 +1,13 @@
+# Default to LF
+* text=auto eol=lf
+
+# Must stay LF, or it will break on Linux
+image-bridge-serve text eol=lf
+
+# Windows-only stuff -> Checkout to CRLF
+*.sln            text eol=crlf
+*.vcxproj        text eol=crlf
+*.vcxproj.filters text eol=crlf
+
+# Binary assets (no line-ending conversion)
+*.ico binary

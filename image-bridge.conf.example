@@ -1,0 +1,15 @@
+# image-bridge.conf: optional. Place next to image-bridge.exe, or pass --config.
+# Unset keys use built-in defaults. Command-line arguments override this file.
+
+# Terminal process the hotkey is gated on. Change for a different terminal.
+terminal     = WindowsTerminal.exe
+
+# Global hotkey chord: ctrl/alt/shift/win plus one letter or digit.
+# Fires when 'terminal' window is focused.
+hotkey       = ctrl+u
+
+# WSL path to the serve script. Use this for a per-user, no-sudo install.
+serve_script = /usr/local/bin/image-bridge-serve
+
+# Longest-side pixel cap for the pasted image.
+max_dim      = 2000

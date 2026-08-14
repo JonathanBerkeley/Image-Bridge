@@ -1,0 +1,36 @@
+#!/bin/bash
+# image-bridge-serve: Serve a PNG (from stdin) on the X11 CLIPBOARD selection.
+#
+# The Windows image-bridge binary pipes the decoded, capped PNG to this script's
+# stdin. xclip takes CLIPBOARD ownership serving image/png, which is what Kiro's
+# arboard reads on paste.
+#
+# Usage: image-bridge-serve < image.png
+# Dependency: xclip.
+#
+# Exit codes (the caller surfaces these as "[E3 rc=N]"):
+#   0  served; xclip owns the selection
+#   4  xclip never took the selection within the cap (check DISPLAY / X11)
+#   5  xclip is not installed
+# Any other rc comes from wsl/bash itself, e.g. 127 if this script is missing.
+
+set -euo pipefail
+
+export DISPLAY="${DISPLAY:-:0}"
+
+command -v xclip >/dev/null 2>&1 || exit 5
+
+# Serve stdin, detached (setsid, redirected, backgrounded) so xclip keeps owning
+# the selection after this script returns. The explicit <&0 feeds our stdin to
+# the backgrounded xclip; a bare & would redirect its stdin from /dev/null.
+setsid xclip -selection clipboard -t image/png -i <&0 >/dev/null 2>&1 &
+
+# Return only once xclip actually owns the selection (~1s cap), so the caller can
+# safely send Ctrl+V.
+for _ in $(seq 1 40); do
+    if xclip -selection clipboard -t TARGETS -o 2>/dev/null | grep -q "^image/png$"; then
+        exit 0
+    fi
+    sleep 0.025
+done
+exit 4

@@ -1,0 +1,33 @@
+# Build outputs
+x64/
+build/
+Debug/
+Release/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.opendb
+*.db
+*.ipch
+
+# vcpkg installed packages
+vcpkg_installed/
+
+# Intermediate files
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
+*.res
+*.manifest

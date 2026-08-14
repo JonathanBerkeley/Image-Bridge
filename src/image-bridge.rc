@@ -1,0 +1,2 @@
+// ID 1 is the lowest icon, so Explorer uses it as the app's file icon.
+1 ICON "image-bridge.ico"
